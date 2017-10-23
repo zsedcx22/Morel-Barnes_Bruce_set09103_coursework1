@@ -1,0 +1,18 @@
+<!doctype html>
+<head>
+  <title>Sharkopedia</title>
+</head>
+<body>
+  {% if sharkorder and sharkfamily and sharkgenus and sharkname %}
+    <a href="https://en.wikipedia.org/wiki/{{ sharkname|replace(" ", "_") }}">{{ sharkname }}</a>
+  {% elif sharkorder and sharkfamily and sharkgenus %}
+    <h1>ALL SHARKS OF {{ sharkgenus }}</h1>
+  {% elif sharkorder and sharkfamily %}
+    <h1>ALL SHARKS OF {{ sharkfamily }}</h1>
+  {% elif sharkorder %}
+    <h1>ALL SHARKS OF {{ sharkorder }}</h1>
+  {% else %}
+    <h1>FAILIURE</h1>
+  {% endif %}
+</body>
+</html>
