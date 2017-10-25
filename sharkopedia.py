@@ -1,15 +1,8 @@
 from flask import Flask, render_template, request, redirect
 import os
 app = Flask(__name__)
-#xd
-@app.route('/sharkopedia/', methods=['POST','GET'])
-@app.route('/sharkopedia/<sharkorder>/', methods=['POST','GET'])
-@app.route('/sharkopedia/<sharkorder>/<sharkfamily>/', methods=['POST','GET'])
-@app.route('/sharkopedia/<sharkorder>/<sharkfamily>/<sharkgenus>/',
-methods=['POST','GET'])
-@app.route('/sharkopedia/<sharkorder>/<sharkfamily>/<sharkgenus>/<sharkname>')
 
-#MODIFIERS FOR DIR ENDING UP SOMETHING LIKE directory+="/{0}".format(sharkorder)
+@app.route('/sharkopedia/', methods=['POST','GET'])
 def shark(sharkorder=None, sharkfamily=None, sharkgenus=None, sharkname=None):
   global directory
   sharks=[]
@@ -26,7 +19,7 @@ def shark(sharkorder=None, sharkfamily=None, sharkgenus=None, sharkname=None):
             #print(file)
       return render_template('sharktemplate.html', sharkorder=sharkorder,
         sharkfamily=sharkfamily, sharkgenus=sharkgenus, sharkname=sharkname,
-        sharks=sharks)
+        sharks=sharks) #launches the jinja2 template
     elif finddir!=None:
       directory+="/{0}".format(finddir)
       if sharkgenus!=None: #if 'genus' has a value
@@ -36,17 +29,17 @@ def shark(sharkorder=None, sharkfamily=None, sharkgenus=None, sharkname=None):
                                      #into a list
         return render_template('sharktemplate.html', sharkorder=sharkorder,
           sharkfamily=sharkfamily, sharkgenus=sharkgenus, sharkname=sharkname,
-          sharks=sharks)
+          sharks=sharks) #launches the jinja2 template
       else:
-        sharks=os.listdir(directory)
+        sharks=os.listdir(directory) #insert each of the directory or file names from the current directory
         return render_template('sharktemplate.html', sharkorder=sharkorder,
           sharkfamily=sharkfamily, sharkgenus=sharkgenus, sharkname=sharkname,
-          sharks=sharks)
+          sharks=sharks) #launches the jinja2 template
   elif request.method=='GET':
-    sharks=os.listdir(directory)
+    sharks=os.listdir(directory) #insert each of the directory names from the base directory (i.e. the Orders)
     return render_template('sharktemplate.html', sharkorder=sharkorder,
       sharkfamily=sharkfamily, sharkgenus=sharkgenus, sharkname=sharkname,
-      sharks=sharks)
-directory="sharks"
+      sharks=sharks) #launches the jinja2 template
+directory="sharks" #setting the base directory for navigating the shark store
 if __name__ == "__main__":
   app.run(host='0.0.0.0', debug=True)
