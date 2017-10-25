@@ -36,6 +36,7 @@ def shark(sharkorder=None, sharkfamily=None, sharkgenus=None, sharkname=None):
           sharkfamily=sharkfamily, sharkgenus=sharkgenus, sharkname=sharkname,
           sharks=sharks) #launches the jinja2 template
   elif request.method=='GET':
+    directory="sharks"
     sharks=os.listdir(directory) #insert each of the directory names from the base directory (i.e. the Orders)
     return render_template('sharktemplate.html', sharkorder=sharkorder,
       sharkfamily=sharkfamily, sharkgenus=sharkgenus, sharkname=sharkname,
